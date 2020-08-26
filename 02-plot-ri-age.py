@@ -20,7 +20,8 @@ if __name__ == '__main__':
     dfi = pd.read_csv('data/indianapolis/age.csv', index_col='age_group')
     dfb = pd.read_csv('data/blumenau/age.csv', index_col='age_group')
 
-    # Blumenau needs to compute RI
+    # Compute RI
+    dfi['RI^{[y1,y2]}'] = dfi['patient-inter'] / dfi['patient']
     dfb['RI^{[y1,y2]}'] = dfb['patient-inter'] / dfb['patient']
 
     #
