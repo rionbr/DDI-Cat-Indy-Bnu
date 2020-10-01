@@ -22,16 +22,15 @@ if __name__ == '__main__':
     dfb = pd.read_csv(path + 'blumenau/age.csv', index_col='age_group')
 
     # Format Catalonia data
-    dfc = pd.read_csv(path + 'Catalonia/Age-gender.txt', sep='\t')
-    dfcp = pd.read_csv(path + 'Catalonia/Number_of_patients_per_age_range.txt', sep='\t')
-    dfc['patient'] = dfcp['Males_one_drug'] + dfcp['Females_one_drug']
+    dfc = pd.read_csv(path + 'Catalonia/Age-gender.txt', sep='\t', index_col='age_group')
+    dfc['patient'] = dfc['At_least_1_fem'] + dfc['At_least_1_mal']
     dfc['patient-inter'] = dfc['Coad_DDI_fem'] + dfc['Coad_DDI_mal']
     dfc = dfc.loc[:, ['patient-inter', 'patient']]
 
     # Compute RI
     dfi['RI^{[y1,y2]}'] = dfi['patient-inter'] / dfi['patient']
     dfb['RI^{[y1,y2]}'] = dfb['patient-inter'] / dfb['patient']
-    dfc['RI^{[y1,y2]}'] = (dfc['patient-inter'] / dfc['patient']).fillna(method='ffill')
+    dfc['RI^{[y1,y2]}'] = (dfc['patient-inter'] / dfc['patient'])
 
     #
     # Curve Fitting

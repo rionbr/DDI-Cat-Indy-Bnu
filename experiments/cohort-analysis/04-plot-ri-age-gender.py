@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
-    gender = 'Male'
+    gender = 'Female'
     gender_symbol = 'F' if gender == 'Female' else 'M'
 
     path = '../../data/'
@@ -28,20 +28,19 @@ if __name__ == '__main__':
     dfb = dfb.loc[dfb['gender'] == gender, :]
 
     # Format Catalonia data
-    dfc = pd.read_csv(path + 'Catalonia/Age-gender.txt', sep='\t')
-    dfcp = pd.read_csv(path + 'Catalonia/Number_of_patients_per_age_range.txt', sep='\t')
+    dfc = pd.read_csv(path + 'Catalonia/Age-gender.txt', sep='\t', index_col='age_group')
     if gender == 'Female':
-        dfc['patient'] = dfcp['Females_one_drug']
+        dfc['patient'] = dfc['At_least_1_fem']
         dfc['patient-inter'] = dfc['Coad_DDI_fem']
     elif gender == 'Male':
-        dfc['patient'] = dfcp['Males_one_drug'] + dfcp['Females_one_drug']
+        dfc['patient'] = dfc['At_least_1_mal']
         dfc['patient-inter'] = dfc['Coad_DDI_mal']
     dfc = dfc.loc[:, ['patient-inter', 'patient']]
 
     # Compute RI
     dfi['RI^{[y1,y2],g}'] = dfi['patient-inter'] / dfi['patient']
     dfb['RI^{[y1,y2],g}'] = dfb['patient-inter'] / dfb['patient']
-    dfc['RI^{[y1,y2],g}'] = (dfc['patient-inter'] / dfc['patient']).fillna(method='ffill')
+    dfc['RI^{[y1,y2],g}'] = (dfc['patient-inter'] / dfc['patient'])
 
     #
     # Curve Fitting
