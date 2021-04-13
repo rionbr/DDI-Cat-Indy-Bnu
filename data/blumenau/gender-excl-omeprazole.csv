@@ -1,3 +1,3 @@
-gender,patient-inter-excl-omeprazole
-Female,11438
-Male,5259
+gender,patient-inter-excl-omeprazole,patient-inter-major-excl-omeprazole,patient-inter-moderate-excl-omeprazole,patient-inter-minor-excl-omeprazole,patient-inter-none-excl-omeprazole
+Female,11438,4878,8824,281,1106
+Male,5259,2254,3935,245,441
